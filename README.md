@@ -1,6 +1,6 @@
 # Ejemplo carrito de compras con objeto y template
 
-## Todo con fijes educativos
+## Todo con fines educativos
 Si puedes mejorar el código, bienvenido!
 
 ## template
