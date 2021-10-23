@@ -44,5 +44,3 @@ const pintarCarrito = (array) => {
 };
 
 btnesBotones.forEach((btn) => btn.addEventListener("click", agragarAlCarrito));
-
-//El valor devuelto de la función reductora se asigna al acumulador, cuyo valor se recuerda en cada iteración de la matriz y, en última instancia, se convierte en el valor final, único y resultante.
