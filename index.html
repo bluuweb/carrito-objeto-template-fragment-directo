@@ -20,7 +20,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Frutilla 🍓</h5>
-                        <button class="btn btn-outline-primary" data-fruta="Frutilla">Agregar</button>
+                        <p class="lead">$300</p>
+                        <button class="btn btn-outline-primary" data-fruta="Frutilla" data-precio="300">Agregar</button>
                     </div>
                 </div>
             </article>
@@ -29,7 +30,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Banana 🍌</h5>
-                        <button class="btn btn-outline-primary" data-fruta="Banana">Agregar</button>
+                        <p class="lead">$100</p>
+                        <button class="btn btn-outline-primary" data-fruta="Banana" data-precio="100">Agregar</button>
                     </div>
                 </div>
             </article>
@@ -38,7 +40,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Manzana 🍏</h5>
-                        <button class="btn btn-outline-primary" data-fruta="Manzana">Agregar</button>
+                        <p class="lead">$200</p>
+                        <button class="btn btn-outline-primary" data-fruta="Manzana" data-precio="200">Agregar</button>
                     </div>
                 </div>
             </article>
@@ -52,10 +55,31 @@
         <ul class="list-group" id="carrito"></ul>
     </section>
 
+    <footer id="footer" class="container mt-3">
+    </footer>
+
+    <template id="templateFooter">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <p class="lead mb-0">Total $<span>1500</span></p>
+                <button class="btn btn-outline-info">Finalizar compra</button>
+            </div>
+        </div>
+    </template>
+
     <template id="template">
+        <li class="list-group-item bg-secondary text-white">
+            <span class="badge bg-primary rounded-pill align-middle">12</span>
+            <span class="lead align-middle">Frutilla</span>
+        </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="lead">Frutilla</span>
-            <span class="badge bg-primary rounded-pill">12</span>
+            <div>
+                <p class="lead mb-0">Total: $<span>300</span></p>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-danger">Quitar</button>
+                <button class="btn btn-sm btn-success">Agregar</button>
+            </div>
         </li>
     </template>
 
