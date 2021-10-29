@@ -1,91 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jugando con DOM</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous"
+        />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jugando con DOM</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
+    <body>
+        <div class="container">
+            <h1>Formularios</h1>
 
-<body>
+            <form id="formulario" novalidate>
+                <input
+                    class="form-control mb-2"
+                    type="text"
+                    name="userName"
+                    placeholder="Ingrese nombre"
+                    autocomplete="off"
+                    id="userName"
+                    required
+                    minlength="3"
+                    maxlength="10"
+                    pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$"
+                    title="Solo letras en el nombre"
+                    value="Ignacio"
+                />
 
-    <main class="container mt-5">
+                <p class="text-danger mb-2 d-none" id="alertName"></p>
 
-        <div class="row text-center">
+                <input
+                    class="form-control mb-2"
+                    type="email"
+                    placeholder="Ingrese correo"
+                    name="userEmail"
+                    id="userEmail"
+                    autocomplete="off"
+                    required
+                    pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"
+                    title="Ingresa un correo válido"
+                    value="ignacio@megusta.com"
+                />
 
-            <article class="col-sm-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Frutilla 🍓</h5>
-                        <p class="lead">$300</p>
-                        <button class="btn btn-outline-primary" data-fruta="Frutilla" data-precio="300">Agregar</button>
-                    </div>
-                </div>
-            </article>
+                <p class="text-danger mb-2 d-none" id="alertEmail"></p>
 
-            <article class="col-sm-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Banana 🍌</h5>
-                        <p class="lead">$100</p>
-                        <button class="btn btn-outline-primary" data-fruta="Banana" data-precio="100">Agregar</button>
-                    </div>
-                </div>
-            </article>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
 
-            <article class="col-sm-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Manzana 🍏</h5>
-                        <p class="lead">$200</p>
-                        <button class="btn btn-outline-primary" data-fruta="Manzana" data-precio="200">Agregar</button>
-                    </div>
-                </div>
-            </article>
-
+            <div
+                class="alert alert-success my-2 d-none"
+                id="alertSuccess"
+            ></div>
         </div>
 
-    </main>
-
-
-    <section class="container mt-3">
-        <ul class="list-group" id="carrito"></ul>
-    </section>
-
-    <footer id="footer" class="container mt-3">
-    </footer>
-
-    <template id="templateFooter">
-        <div class="card">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <p class="lead mb-0">Total $<span>1500</span></p>
-                <button class="btn btn-outline-info">Finalizar compra</button>
-            </div>
-        </div>
-    </template>
-
-    <template id="template">
-        <li class="list-group-item bg-secondary text-white">
-            <span class="badge bg-primary rounded-pill align-middle">12</span>
-            <span class="lead align-middle">Frutilla</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <p class="lead mb-0">Total: $<span>300</span></p>
-            </div>
-            <div>
-                <button class="btn btn-sm btn-danger">Quitar</button>
-                <button class="btn btn-sm btn-success">Agregar</button>
-            </div>
-        </li>
-    </template>
-
-
-    <script src="app.js"></script>
-    <!-- <script src="recursivas.js"></script> -->
-</body>
-
+        <script src="app.js"></script>
+    </body>
 </html>
