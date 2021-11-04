@@ -1,16 +1,14 @@
-const formulario = document.getElementById("formulario");
+const url = "https://jsonplaceholder.typicode.com/posts/";
 
-formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
+const findPostById = async (id) => {
+    try {
+        const res = await fetch(url + id);
+        const post = await res.json();
 
-    const inputs = new FormData(formulario);
-
-    for (let item of inputs) {
-        console.log(item);
+        console.log(post);
+    } catch (error) {
+        console.log(error);
     }
+};
 
-    console.log(inputs.get("userName"));
-    console.log(inputs.get("userEmail"));
-
-    console.log("procesando formulario");
-});
+findPostById(50);
