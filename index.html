@@ -17,45 +17,64 @@
     </head>
     <body>
         <div class="container my-5">
-            <!-- Spinner cargando -->
-            <section class="d-flex align-items-center d-none" id="loading">
-                <strong>Cargando...</strong>
-                <div
-                    class="spinner-border ms-auto"
-                    role="status"
-                    aria-hidden="true"
-                ></div>
+            <h1>Estudiantes y Profesores</h1>
+            <form id="formulario">
+                <input
+                    class="form-control mb-2"
+                    name="nombre"
+                    placeholder="Ingrese nombre"
+                    type="text"
+                    value="Juanito"
+                    required
+                />
+                <input
+                    class="form-control mb-2"
+                    name="edad"
+                    placeholder="Ingrese nombre"
+                    type="number"
+                    value="25"
+                    required
+                />
+
+                <select class="form-select mb-2" name="opcion">
+                    <option value="Estudiante" selected>Estudiante</option>
+                    <option value="Profesor">Profesor</option>
+                </select>
+
+                <button class="btn btn-primary" type="submit">Agregar</button>
+            </form>
+
+            <section class="row mt-3">
+                <div class="col-6" id="cardsEstudiantes"></div>
+                <div class="col-6" id="cardsProfesores"></div>
             </section>
-
-            <div id="paginacion"></div>
-
-            <template id="template-paginacion">
-                <section class="my-3 d-flex justify-content-between">
-                    <button class="btn btn-outline-secondary">Prev</button>
-                    <button class="btn btn-outline-primary">Next</button>
-                </section>
-            </template>
-
-            <section class="row" id="card-dinamicas"></section>
         </div>
 
-        <template id="template-card">
-            <article class="col-12 col-md-6 col-lg-3 mb-3">
-                <div class="card text-center shadow">
-                    <img
-                        src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-                        alt=""
-                        class="card-img-top"
-                    />
-                    <div class="card-body">
-                        <h5 class="card-title text-primary lead">
-                            El nombre personaje
-                        </h5>
-                        <p class="lead text-secondary">Human Estatico</p>
-                    </div>
+        <template id="templateEstudiante">
+            <article class="card mb-2">
+                <div class="card-body">
+                    <h5>
+                        <span class="text-primary">Nombre</span>
+                        <span class="badge bg-success">Aprobado</span>
+                    </h5>
+                    <h6></h6>
+                    <p class="lead">edad</p>
+                    <button class="btn btn-success">Aprobar</button>
+                    <button class="btn btn-danger">Reprobar</button>
                 </div>
             </article>
         </template>
+
+        <template id="templateProfesor">
+            <article class="card mb-2 bg-dark text-white">
+                <div class="card-body">
+                    <h5>nombre</h5>
+                    <h6></h6>
+                    <p class="lead">Edad</p>
+                </div>
+            </article>
+        </template>
+
         <script src="app.js"></script>
     </body>
 </html>
