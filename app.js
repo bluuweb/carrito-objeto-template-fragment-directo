@@ -1,42 +1,65 @@
-const carrito = document.getElementById("carrito");
-const template = document.getElementById("template");
+// ! practica DOM
+const carrito = document.getElementById('carrito');
+const template = document.getElementById('template');
 const fragment = document.createDocumentFragment();
-const btnesBotones = document.querySelectorAll(".card .btn");
+const btnBotones = document.querySelectorAll('.card .btn-a');
+const btnBotonesEliminar = document.querySelectorAll('.card .btn-e');
 
-const carritoObjeto = {};
 
-const agragarAlCarrito = (e) => {
-    console.log(e.target.dataset.fruta);
+const carritoCompras = {};
 
+const agregarCarrito = (e) => {
+    //console.log(e.target.dataset.fruta);
+    
     const producto = {
-        titulo: e.target.dataset.fruta,
+        nombre: e.target.dataset.fruta,
         id: e.target.dataset.fruta,
-        cantidad: 1,
-    };
-
-    if (carritoObjeto.hasOwnProperty(producto.titulo)) {
-        producto.cantidad = carritoObjeto[producto.titulo].cantidad + 1;
+        cantidad: 1
     }
 
-    carritoObjeto[producto.titulo] = producto;
-
+    carritoCompras[producto.nombre] 
+    ? carritoCompras[producto.nombre].cantidad++ 
+    : carritoCompras[producto.nombre] = producto;
+    console.log(Object.getOwnPropertyNames(carritoCompras));
     pintarCarrito();
 
-    // console.log(carritoObjeto);
-};
+}
 
 const pintarCarrito = () => {
-    carrito.textContent = "";
 
-    Object.values(carritoObjeto).forEach((item) => {
+    carrito.textContent = '';
+
+    Object.values(carritoCompras).forEach((item) => {
         const clone = template.content.firstElementChild.cloneNode(true);
-        clone.querySelector(".lead").textContent = item.titulo;
-        clone.querySelector(".badge").textContent = item.cantidad;
-
+        clone.querySelector('.lead').textContent = item.nombre;
+        clone.querySelector('.badge').textContent = item.cantidad;
         fragment.appendChild(clone);
-    });
+    })
 
     carrito.appendChild(fragment);
-};
+}
 
-btnesBotones.forEach((btn) => btn.addEventListener("click", agragarAlCarrito));
+btnBotones.forEach( (btn) => btn.addEventListener('click', agregarCarrito) );
+
+btnBotonesEliminar.forEach( btn => btn.addEventListener('click', (e) => {
+
+    if(Object.getOwnPropertyNames(carritoCompras).length != 0){
+        if(carritoCompras[e.target.dataset.fruta].cantidad != 0 ){
+            carritoCompras[e.target.dataset.fruta].cantidad--;
+            pintarCarrito();
+
+            if(carritoCompras[e.target.dataset.fruta].cantidad === 0){
+                delete carritoCompras[e.target.dataset.fruta];
+            }
+        }
+        else{
+            alert(`ya no tienes mas ${e.target.dataset.fruta}`);
+        }
+    } 
+    else {
+        alert('No hay productos en el carrito');
+        carrito.textContent = '';
+        return
+    }
+
+}));

@@ -13,14 +13,13 @@
 <body>
 
     <main class="container mt-5">
-
         <div class="row text-center">
-
             <article class="col-sm-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Frutilla 🍓</h5>
-                        <button class="btn btn-outline-primary" data-fruta="Frutilla">Agregar</button>
+                        <h5 class="card-title">Fresa 🍓</h5>
+                        <button data-fruta="Fresa" class="btn btn-a btn-outline-primary">Agregar</button>
+                        <button data-fruta="Fresa" class="btn btn-e btn-outline-danger">Eliminar</button>
                     </div>
                 </div>
             </article>
@@ -28,8 +27,9 @@
             <article class="col-sm-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Banana 🍌</h5>
-                        <button class="btn btn-outline-primary" data-fruta="Banana">Agregar</button>
+                        <h5 class="card-title">Platano 🍌</h5>
+                        <button data-fruta="Platano" class="btn btn-a btn-outline-primary">Agregar</button>
+                        <button data-fruta="Platano" class="btn btn-e btn-outline-danger">Eliminar</button>
                     </div>
                 </div>
             </article>
@@ -37,24 +37,23 @@
             <article class="col-sm-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Manzana 🍏</h5>
-                        <button class="btn btn-outline-primary" data-fruta="Manzana">Agregar</button>
+                        <h5 class="card-title">Manzana 🍎</h5>
+                        <button data-fruta="Manzana" class="btn btn-a btn-outline-primary">Agregar</button>
+                        <button data-fruta="Manzana" class="btn btn-e btn-outline-danger">Eliminar</button>
                     </div>
                 </div>
             </article>
-
         </div>
 
-    </main>
-
-
+    </main>   
+    
     <section class="container mt-3">
         <ul class="list-group" id="carrito"></ul>
     </section>
 
     <template id="template">
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="lead">Frutilla</span>
+            <span class="lead">Fresa</span>
             <span class="badge bg-primary rounded-pill">12</span>
         </li>
     </template>
