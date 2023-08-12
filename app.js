@@ -1,91 +1,117 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetchData();
-});
+// ------------------ Funciones
+//
+// ------------------ Spinner de carga
+const loading = (estado) => {
+    const spinner = document.querySelector('.container .cargando');
 
-const fetchData = async (url = "https://rickandmortyapi.com/api/character") => {
-    // console.log("obteniendo datos...");
+    if(estado) {
+        // Mostrar el spinner de carga
+        spinner.classList.remove('d-none');
+    }
+    else {
+        // Ocultar el spinner de carga
+        spinner.classList.add('d-none');
+    }
+};
+
+// ------------------ Interferir el DOM con la data
+const manipularData = (data) => {
+    const characters = data.results;
+
+    // console.table(characters, ['id', 'name', 'species', 'image', 'url']);
+
+    const seccionCards = document.querySelector('#cards-dinamicas');
+    const seccionCardsTemplate = document.querySelector('#card-dinamica-tamplate').content;
+    const fragmentCards = document.createDocumentFragment();
+
+    seccionCards.textContent = '';
+
+    characters.forEach(character => {
+        const clonSeccionCardsTemplate = seccionCardsTemplate.cloneNode(true);
+
+        clonSeccionCardsTemplate.querySelector('.card .card-img-top').src = character.image;
+        clonSeccionCardsTemplate.querySelector('.card .card-body .card-title').textContent = character.name;
+        clonSeccionCardsTemplate.querySelector('.card .card-body p.lead').textContent = character.species;
+        clonSeccionCardsTemplate.querySelector('.card .card-body .btn.btn-primary').href = character.url;
+
+        fragmentCards.appendChild(clonSeccionCardsTemplate);
+    });
+
+    seccionCards.appendChild(fragmentCards);
+
+    paginar(data.info);
+};
+
+// ------------------ Petición a la API de Rick y Morty
+const renderCards = async (url) => {
     try {
-        loadindData(true);
+        loading(true);
 
         const res = await fetch(url);
         const data = await res.json();
-
-        // console.log(data);
-        pintarCard(data);
+        
+        manipularData(data);
     } catch (error) {
         console.log(error);
     } finally {
-        loadindData(false);
+        loading(false);
     }
 };
 
-const pintarCard = (data) => {
-    const cards = document.getElementById("card-dinamicas");
-    cards.textContent = "";
-    const templateCard = document.getElementById("template-card").content;
-    const fragment = document.createDocumentFragment();
-    // console.log(data);
-    data.results.forEach((item) => {
-        // console.log(item);
-        const clone = templateCard.cloneNode(true);
-        clone.querySelector("h5").textContent = item.name;
-        clone.querySelector("p").textContent = item.species;
-        clone.querySelector(".card-img-top").setAttribute("src", item.image);
+// ------------------ Paginar
+const paginar = (data) => {
+    console.log(data);
 
-        // guardamos en el fragment para evitar el reflow
-        fragment.appendChild(clone);
-    });
+    const paginationSection = document.querySelector('#pagination');
+    const paginationTemplate = document.querySelector('#pagination-template').content;
 
-    cards.appendChild(fragment);
+    const clonPaginationTemplate = paginationTemplate.firstElementChild.cloneNode(true);
+    const paginationButtons = clonPaginationTemplate.querySelectorAll('button');
 
-    pintarPaginacion(data.info);
-};
+    paginationButtons.forEach(button => {
+        // ------------------ Si es la primera o la última página, se desactiva el botón
+        if((button.dataset.botonPaginacion === 'prev' && !data.prev) 
+        || (button.dataset.botonPaginacion === 'next' && !data.next)) {
+            button.disabled = true;
+        }
+        
+        // ------------------ Revertir el efecto de desactivado
+        if((button.dataset.botonPaginacion === 'prev' && data.prev) 
+        || (button.dataset.botonPaginacion === 'next' && data.next)) {
+            button.disabled = false;
 
-const pintarPaginacion = (data) => {
-    // console.log(data);
-    const paginacion = document.getElementById("paginacion");
-    paginacion.textContent = "";
-    const templatePaginacion = document.getElementById(
-        "template-paginacion"
-    ).content;
-    const clone = templatePaginacion.cloneNode(true);
+            if(button.dataset.botonPaginacion === 'prev') {
+                button.dataset.url = data.prev;
+            }
 
-    if (data.prev) {
-        clone.querySelector(".btn-outline-secondary").disabled = false;
-    } else {
-        clone.querySelector(".btn-outline-secondary").disabled = true;
-    }
-
-    if (data.next) {
-        clone.querySelector(".btn-outline-primary").disabled = false;
-    } else {
-        clone.querySelector(".btn-outline-primary").disabled = true;
-    }
-
-    paginacion.appendChild(clone);
-
-    paginacion.addEventListener("click", (e) => {
-        if (e.target.matches(".btn-outline-primary")) {
-            console.log("click");
-            if (data.next) {
-                fetchData(data.next);
+            if(button.dataset.botonPaginacion === 'next') {
+                button.dataset.url = data.next;
             }
         }
-        if (e.target.matches(".btn-outline-secondary")) {
-            console.log("click");
-            if (data.prev) {
-                fetchData(data.prev);
-            }
-        }
+
+        console.log(button.dataset.url);
     });
+
+    paginationSection.textContent = '';
+
+    // ------------------ Al solo ser un clon, no se necesita fragment
+    paginationSection.appendChild(clonPaginationTemplate);
 };
 
-// pintar el loading
-const loadindData = (estado) => {
-    const loading = document.getElementById("loading");
-    if (estado) {
-        loading.classList.remove("d-none");
-    } else {
-        loading.classList.add("d-none");
+// Delegación de eventos
+//
+// ------------------ Cargar el DOM
+document.addEventListener('DOMContentLoaded', (e) => {
+    // URL de la API
+    const url = 'https://rickandmortyapi.com/api/character';
+
+    renderCards(url);
+});
+
+document.addEventListener('click', (e) => {
+    const fuenteEvento = e.target;
+
+    if(fuenteEvento.dataset.botonPaginacion === 'prev' || fuenteEvento.dataset.botonPaginacion === 'next') {
+        renderCards(fuenteEvento.dataset.url);
     }
-};
+});
